@@ -10,7 +10,7 @@
 			require $file;
 			ob_end_flush();
 		} else {
-			trigger_error("View မှာ ထည့်ရမယ်ဆိုတာ မသိဘူးလား ချီးထုတ်", E_USER_ERROR);
+			trigger_error("You need to add view file in view folder", E_USER_ERROR);
 		}
 		
 	}
