@@ -2,7 +2,25 @@
 
 function BarController() {
 	$data = [
-		'title'	=> 'Myanmar Links'
+		'title'	=> 'Myanmar Links',
+		'students'	=> [
+			[
+				"id" 	=> 1,
+				'name'	=> 'Aung Aung',
+				'address'	=> 'Hledan'
+			],
+			[
+				"id" 	=> 1,
+				'name'	=> 'Aung Aung',
+				'address'	=> 'Hledan'
+			],
+			[
+				"id" 	=> 1,
+				'name'	=> 'Aung Aung',
+				'address'	=> 'Hledan'
+			]
+
+		]
 	];
 	load_view("bar", $data);
 }
