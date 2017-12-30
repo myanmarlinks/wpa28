@@ -12,11 +12,30 @@ function _db_connect() {
 	return $conn;
 }
 
+function _db_Insert(string $table_name, array $data) {
+	$conn = _db_connect();
+	$keys = array_keys($data);
+	$i_keys = implode(", ", $keys);
+	$values = array_values($data);
+	$i_values = "";
+	foreach ($values as $value) {
+		$i_values .= "'" . $value . "', ";
+	}
+	$e_values = rtrim($i_values, ", ");
+
+	$sql = "INSERT INTO " . $table_name . "(" . $i_keys . ")" . " VALUES(" . $e_values . ")";
+
+	$result = mysqli_query($conn, $sql);
+	if($result == true) {
+		$last_id = mysqli_insert_id($conn);
+	}
+	mysqli_close($conn);
+	return $last_id;
+}
+
 
 function _db_getById(string $table_name, int $id) {
-
 	$conn = _db_connect();
-	
 	$sql = "SELECT * FROM " . $table_name . " WHERE id = " . mysqli_real_escape_string($conn, $id);
 	$result = mysqli_query($conn, $sql);
 	mysqli_close($conn);
