@@ -29,7 +29,7 @@ function _db_getAll(string $table_name)  {
 	$sql = "SELECT * FROM " . $table_name;
 	$result = mysqli_query($conn, $sql);
 	mysqli_close($conn);
-	return mysqli_fetch_all($result);
+	return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
  ?>
