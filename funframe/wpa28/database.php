@@ -17,7 +17,7 @@ function _db_getById(string $table_name, int $id) {
 
 	$conn = _db_connect();
 	
-	$sql = "SELECT * FROM " . $table_name . " WHERE id = " . $id;
+	$sql = "SELECT * FROM " . $table_name . " WHERE id = " . mysqli_real_escape_string($conn, $id);
 	$result = mysqli_query($conn, $sql);
 	mysqli_close($conn);
 	return mysqli_fetch_assoc($result);
