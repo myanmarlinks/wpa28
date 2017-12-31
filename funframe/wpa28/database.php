@@ -12,6 +12,27 @@ function _db_connect() {
 	return $conn;
 }
 
+function _db_Update(string $table_name, int $id, array $data) { 
+	$insert_text = "";
+	foreach ($data as $key => $value) {
+		$insert_text .= "`" . $key . "` = ";
+		if(gettype($value) == 'string') {
+			$insert_text .= "'" . $value . "'";
+		} else {
+			$insert_text .= $value;
+		}
+		$insert_text .= ", ";
+	}
+	
+	$final = rtrim($insert_text, ", ");
+	
+	$sql = "UPDATE " . $table_name . " SET " . $final . " WHERE id = " . $id;
+	$conn = _db_connect();
+	$result = mysqli_query($conn, $sql);
+	mysqli_close($conn);
+	return $result;
+}
+
 function _db_Insert(string $table_name, array $data) {
 	$conn = _db_connect();
 	$keys = array_keys($data);
@@ -43,9 +64,19 @@ function _db_getById(string $table_name, int $id) {
 
 }
 
-function _db_getAll(string $table_name)  {
+function _db_getAll(string $table_name, array $fields = null)  {
 	$conn = _db_connect();
-	$sql = "SELECT * FROM " . $table_name;
+	if($fields == null) {
+		$sql = "SELECT * FROM " . $table_name;	
+	} else {
+		$sql = "SELECT ";
+		foreach($fields as $field) {
+			$sql .= '`' . $field . "`,";
+		}
+		$sql = rtrim($sql, ",");
+		$sql .= " FROM " . $table_name;
+	}
+	
 	$result = mysqli_query($conn, $sql);
 	mysqli_close($conn);
 	return mysqli_fetch_all($result, MYSQLI_ASSOC);
