@@ -7,7 +7,6 @@ namespace Composer\Autoload;
 class ComposerStaticInit35774247a13a6cd43cb1a535fc826b13
 {
     public static $classMap = array (
-        'ConfigProvider' => __DIR__ . '/../..' . '/wpa28/provider/ConfigProvider.php',
         'DB' => __DIR__ . '/../..' . '/wpa28/provider/Database.php',
     );
 
