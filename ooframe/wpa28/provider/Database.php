@@ -29,8 +29,23 @@ class DB extends PDO {
     	self::$_instance->table_name = $table_name;
     	return self::$_instance;
     }
+
+    public function where($id, $value) {
+    	$valuetype = gettype($value);
+    	$sql = "SELECT * FROM " . $this->table_name . " WHERE " . $id . " = ";
+    	if($valuetype == "string") {
+    		$sql .= "'" . $value . "'";
+    	} else {
+    		$sql .= $value;
+    	}
+    	return $this;
+    }
     public function get() {
-    	echo $this->table_name . "<br>";
+    	$sql = "SELECT * FROM " . $this->table_name;
+    	$prep = $this->prepare($sql);
+    	$prep->execute();	
+    	$results = $prep->fetchAll(PDO::FETCH_OBJ);
+    	return $results;
     }
 }
 
