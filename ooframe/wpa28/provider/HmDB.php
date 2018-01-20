@@ -52,7 +52,7 @@ class HhDB extends PDO {
 
 		return self::$_instance;
 	}
-
+	// "id", "name", "address"
 	public function select(string ...$col) {	//string ...$value
 
 		$this->select_status = true;
@@ -63,7 +63,13 @@ class HhDB extends PDO {
 
 	public function where(){
 		$args = func_get_args();
-		$val = "'" . end($args) . "'";	array_pop($args);
+
+		if(gettype(end($args))== "string") {
+			$val = "'" . end($args) . "'";	
+		} else {
+			$val = end($args);
+		}
+		array_pop($args);
 		$where_clause = implode(" ",$args);
 		$this->sql .= " WHERE " .  $where_clause . " " . $val;
 		return $this;

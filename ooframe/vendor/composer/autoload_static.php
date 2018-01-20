@@ -9,6 +9,7 @@ class ComposerStaticInit35774247a13a6cd43cb1a535fc826b13
     public static $classMap = array (
         'Config' => __DIR__ . '/../..' . '/wpa28/provider/ConfigProvider.php',
         'DB' => __DIR__ . '/../..' . '/wpa28/provider/Database.php',
+        'HDB' => __DIR__ . '/../..' . '/wpa28/provider/Hdb.php',
         'HhDB' => __DIR__ . '/../..' . '/wpa28/provider/HmDB.php',
     );
 
