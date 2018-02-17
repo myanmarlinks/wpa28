@@ -3,17 +3,33 @@
 define("DD", realpath("../"));
 
 require DD . "/vendor/autoload.php";
-
-kick();
-test();
-
 use Wpa28\App\Application;
-use Wpa28\Foo\Application as FooApplication;
-use Wpa28\App\Bar;
 
-$app = new Application();
-$fapp = new FooApplication();
-$bar = new Bar();
+class Test {
+	public function index() {
+		var_dump("INDEX");
+	}
+}
+class Another {
+	public function index() {
+		var_dump("ANOTHER");
+	}
+}
+$status = Application::add(new Test());
+if($status == null) {
+	var_dump("First Set!");
+}
+Application::add(new Another());
+$test = Application::get("test");
+$test->index();
+$another = Application::get("another");
+$another->index();
+
+Application::remove("another");
+$aan = Application::get("another");
+$aan->index();
+
+
 
 
 // $students = DB::table("students")->get();
