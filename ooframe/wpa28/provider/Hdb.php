@@ -49,7 +49,7 @@ class HDB extends PDO {
 			parent::__construct( $dns, $this->user, $this->pass ); 
 		}
 
-	public function select(string ...$value) // ...$value is open array(Facade pattern mar use mar moz)
+	public function select(string ...$value) 
 	{
 		$this->select_status= true;
 		$this->select_sql = implode("," , $value); //implode is a built-in function that convert array to string
@@ -110,34 +110,30 @@ class HDB extends PDO {
 
 	public function filter($val)
 	{
-			$this->filter_status= true; //AND, OR, LIKE, <, >, <> , <=, >= , != 
-			$this->filter_sql=$val;
+		$this->filter_status = true; //AND, OR, LIKE, <, >, <> , <=, >= , != 
+		$this->filter_sql = $val;
+		return $this;
+	}
 
+	public function order(string ...$value)
+	{
+		$this->order_status= true;
+		$order=implode(" " , $value);
+		$this->order_sql= sprintf("order by %s",$order);
+		
+		
+		return $this;
 
-			return $this;
+	}
 
+	public function where($val)
+	{
+		$sql="";
+		$this->where_status= true;
 
-		}
-
-		public function order(string ...$value)
+		if($this->filter_status==true)
 		{
-			$this->order_status= true;
-			$order=implode(" " , $value);
-			$this->order_sql= sprintf("order by %s",$order);
-			
-			
-			return $this;
-
-		}
-
-		public function where($val)
-		{
-			$sql="";
-			$this->where_status= true;
-
-			if($this->filter_status==true)
-			{
-				if($this->filter_sql=="or" || $this->filter_sql=="and")
+			if($this->filter_sql=="or" || $this->filter_sql=="and")
 				{
 					$i=0;
 					foreach ($val as $key => $value) {
