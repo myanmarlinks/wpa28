@@ -4,30 +4,36 @@ define("DD", realpath("../"));
 
 require DD . "/vendor/autoload.php";
 use Wpa28\App\Application;
+use Wpa28\App\LogFactory;
 
-class Test {
-	public function index() {
-		var_dump("INDEX");
-	}
-}
-class Another {
-	public function index() {
-		var_dump("ANOTHER");
-	}
-}
-$status = Application::add(new Test());
-if($status == null) {
-	var_dump("First Set!");
-}
-Application::add(new Another());
-$test = Application::get("test");
-$test->index();
-$another = Application::get("another");
-$another->index();
+$log = new LogFactory();
+$logFile = $log->getLog('file', ["test"]);
+$logFile->write("test", "Hello World!");
 
-Application::remove("another");
-$aan = Application::get("another");
-$aan->index();
+
+// class Test {
+// 	public function index() {
+// 		var_dump("INDEX");
+// 	}
+// }
+// class Another {
+// 	public function index() {
+// 		var_dump("ANOTHER");
+// 	}
+// }
+// $status = Application::add(new Test());
+// if($status == null) {
+// 	var_dump("First Set!");
+// }
+// Application::add(new Another());
+// $test = Application::get("test");
+// $test->index();
+// $another = Application::get("another");
+// $another->index();
+
+// Application::remove("another");
+// $aan = Application::get("another");
+// $aan->index();
 
 
 
