@@ -10,6 +10,9 @@ $log = new LogFactory();
 $logFile = $log->getLog('file', ["test"]);
 $logFile->write("test", "Hello World!");
 
+$logFile = $log->getLog('redis', ["test"]);
+$logFile->write("test", "Hello World!");
+
 
 // class Test {
 // 	public function index() {
